@@ -29,12 +29,14 @@ public class CalculatorApplication {
             panel.setLayout(new GridLayout(5, 4, 5, 5));
 
             String[] buttonLabels = {
-                    "%", "CE", "C", "⯇",
+                    "CE", "(", ")", "⯇",
                     "7", "8", "9", "/",
                     "4", "5", "6", "*",
                     "1", "2", "3", "-",
-                    "0", ".", "=", "+"
+                    "0", ".", "", "+",
+
             };
+
 
             for (String label : buttonLabels) {
                 JButton button = new JButton(label);
@@ -42,9 +44,17 @@ public class CalculatorApplication {
                 panel.add(button);
             }
 
+            JPanel jPanel = new JPanel();
+            jPanel.setLayout(new GridLayout(1, 1, 5, 5));
+            JButton button = new JButton("=");
+            button.setBackground(Color.ORANGE);
+            button.addActionListener(new ButtonClickListener(textField));
+            jPanel.add(button);
+
             frame.getContentPane().setLayout(new BorderLayout());
             frame.getContentPane().add(textField, BorderLayout.NORTH);
             frame.getContentPane().add(panel, BorderLayout.CENTER);
+            frame.getContentPane().add(jPanel, BorderLayout.SOUTH);
 
             frame.setSize(300, 300);
             frame.pack();
@@ -68,23 +78,10 @@ public class CalculatorApplication {
 
             String text = textField.getText();
             switch (buttonText) {
-                case "=":
-                    String result = calculateResult(text);
-
-                    textField.setText(result);
-                    break;
-                case "⯇":
-
-                    text = text.length() > 0 ? text.substring(0, text.length() - 1) :  "";
-                    textField.setText(text);
-                    break;
-                case "CE":
-                    break;
-                case "C":
-                    break;
-                default:
-                    textField.setText(textField.getText() + buttonText);
-
+                case "=" -> textField.setText(calculateResult(text));
+                case "⯇" -> textField.setText(text.length() > 0 ? text.substring(0, text.length() - 1) : "");
+                case "CE" -> textField.setText("");
+                default -> textField.setText(textField.getText() + buttonText);
             }
         }
 
