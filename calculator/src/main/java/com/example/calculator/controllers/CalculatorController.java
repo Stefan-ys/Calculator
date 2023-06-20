@@ -1,5 +1,6 @@
 package com.example.calculator.controllers;
 
+import com.example.calculator.service.CalculatorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class CalculatorController {
 
+    private final CalculatorService calculatorService;
+
+    public CalculatorController(CalculatorService calculatorService) {
+        this.calculatorService = calculatorService;
+    }
+
     @GetMapping("/")
     public String calculatorForm(Model model) {
         return "calculator";
@@ -18,6 +25,8 @@ public class CalculatorController {
     @PostMapping("/calculate")
     @ResponseBody
     public String calculate(@RequestParam("input") String input) {
-        return "ssss";
+
+        return calculatorService.calculate(input);
+
     }
 }
