@@ -25,8 +25,14 @@ public class CalculatorController {
     @PostMapping("/calculate")
     @ResponseBody
     public String calculate(@RequestParam("input") String input) {
-
-        return calculatorService.calculate(input);
+        
+        String result;
+        try {
+            result = calculatorService.calculate(input);
+        } catch (Exception e) {
+            result = "ERROR";
+        }
+        return result;
 
     }
 }
