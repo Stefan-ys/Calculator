@@ -58,7 +58,13 @@ public class CalculatorServiceImpl implements CalculatorService {
 
         }
         System.out.println(list);
-        return (result.pop() + "");
+        
+        String output = (result.pop() + "");
+        if (output.endsWith(".0")) {
+            output = output.replace(".0", "");
+        }
+        return output;
+        
     }
 
     private void pushToStack(Stack<Double> result, char operator) {
