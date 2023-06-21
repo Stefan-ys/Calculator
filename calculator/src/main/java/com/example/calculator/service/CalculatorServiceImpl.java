@@ -59,12 +59,15 @@ public class CalculatorServiceImpl implements CalculatorService {
         }
         System.out.println(list);
         
-        String output = (result.pop() + "");
+        return trimOutput(result.pop() + "");
+
+    }
+
+    private String trimOutput(String output) {
         if (output.endsWith(".0")) {
             output = output.replace(".0", "");
         }
         return output;
-        
     }
 
     private void pushToStack(Stack<Double> result, char operator) {
